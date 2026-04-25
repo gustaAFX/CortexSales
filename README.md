@@ -8,7 +8,11 @@ Plataforma de vendas com agentes de IA para automacao comercial via WhatsApp.
 CortexSales/
 ├── backend/          # FastAPI + SQLAlchemy + SQLite
 │   ├── app/
-│   │   ├── ai/           # Modulo de IA (LangGraph/LangChain) — em desenvolvimento
+│   │   ├── ai/           # Modulo de IA (LangGraph/LangChain)
+│   │   │   ├── agents/   # Nos dos agentes (SDR, Closer, Gerente)
+│   │   │   ├── langgraph/ # StateGraph e estado compartilhado
+│   │   │   ├── prompts/  # System prompts dos agentes
+│   │   │   └── tools/    # Tools para LangChain (WhatsApp)
 │   │   ├── api/routes/   # Rotas HTTP
 │   │   ├── controllers/  # Controladores
 │   │   ├── core/         # Configuracoes
@@ -37,7 +41,7 @@ CortexSales/
 
 ## Requisitos
 
-- Python 3.12+
+- Python 3.11+
 - Node.js 18+
 - npm 9+
 
@@ -69,8 +73,12 @@ npm install
 | `EVOLUTION_BASE_URL` | URL base da Evolution API | Sim* |
 | `EVOLUTION_API_KEY` | Chave de API da Evolution | Sim* |
 | `EVOLUTION_INSTANCE` | Nome da instancia Evolution | Sim* |
+| `GROQ_API_KEY` | Chave de API do Groq para LLMs | Sim** |
+| `GROQ_MODEL` | Modelo Groq (padrao: `llama-3.3-70b-versatile`) | Nao |
 
 \* Obrigatorias apenas para funcionalidades de WhatsApp.
+
+\*\* Obrigatoria para agentes IA. Sem a key, o sistema usa fallback baseado em keywords.
 
 ### Frontend
 
@@ -130,6 +138,27 @@ npm test
 | `POST` | `/whatsapp/send-text` | Enviar mensagem de texto |
 | `POST` | `/whatsapp/send-media` | Enviar midia |
 | `POST` | `/agents/handle-incoming` | Processar mensagem recebida pelo protocolo de agentes |
+
+## Agentes de IA
+
+O sistema usa LangGraph para orquestrar 3 agentes:
+
+| Agente | Papel | Regras |
+|---|---|---|
+| **Gerente** | Auditor e orquestrador | Nao vende, nao interage com leads. Aciona humanos. |
+| **SDR** | Primeiro contato e qualificacao | Identifica dor + orcamento. Nao vende, nao informa preco. |
+| **Closer** | Fechamento de vendas | Contorna objecoes, concede desconto ate 10%. Nao faz reunioes. |
+
+### Fluxo
+
+1. Mensagem recebida → Router define agente inicial
+2. SDR qualifica → encaminha ao Closer ou descarta
+3. Closer tenta fechar → sucesso (END) ou aciona Gerente
+4. Gerente → aciona intervencao humana
+
+### Fallback
+
+Sem `GROQ_API_KEY`, o sistema usa routing baseado em keywords (sem LLM).
 
 ## Licenca
 

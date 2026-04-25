@@ -13,6 +13,12 @@ class Settings:
     evolution_instance: str
 
 
+@dataclass(frozen=True)
+class GroqSettings:
+    api_key: str
+    model: str
+
+
 def get_settings() -> Settings:
     base_url = os.getenv("EVOLUTION_BASE_URL", "")
     api_key = os.getenv("EVOLUTION_API_KEY", "")
@@ -36,3 +42,13 @@ def get_settings() -> Settings:
         evolution_api_key=api_key,
         evolution_instance=instance,
     )
+
+
+def get_groq_settings() -> GroqSettings:
+    api_key = os.getenv("GROQ_API_KEY", "")
+    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+    if not api_key:
+        raise SettingsError("Missing required environment variable: GROQ_API_KEY")
+
+    return GroqSettings(api_key=api_key, model=model)
