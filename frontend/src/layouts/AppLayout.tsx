@@ -4,9 +4,9 @@ import { useAppStore } from "../store/appStore";
 const navItems = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/kanban", label: "Kanban" },
-  { to: "/reports", label: "Reports" },
-  { to: "/meetings", label: "Meetings" },
-  { to: "/products", label: "Products" },
+  { to: "/reports", label: "Relatorios" },
+  { to: "/meetings", label: "Reunioes" },
+  { to: "/products", label: "Produtos" },
   { to: "/branding", label: "Branding" }
 ];
 

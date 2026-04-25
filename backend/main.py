@@ -1,4 +1,8 @@
+from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes.agents import router as agents_router
 from app.api.routes.branding import router as branding_router
@@ -8,14 +12,24 @@ from app.api.routes.whatsapp import router as whatsapp_router
 from app.database.session import Base, engine
 from app.models import Branding, Product  # noqa: F401
 
-app = FastAPI(title="CortexSales API")
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
+app = FastAPI(title="CortexSales API", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(health_router)
 app.include_router(products_router)
 app.include_router(branding_router)
 app.include_router(whatsapp_router)
 app.include_router(agents_router)
-
-
-@app.on_event("startup")
-def on_startup() -> None:
-    Base.metadata.create_all(bind=engine)

@@ -6,7 +6,7 @@ import { mockMeetings } from "../features/meetings/mockData";
 export function MeetingsPage() {
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold">Meetings</h2>
+      <h2 className="text-xl font-semibold">Reunioes</h2>
       <Card title="Agenda de reunioes">
         <Table
           rows={mockMeetings}
