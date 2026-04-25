@@ -1,6 +1,26 @@
+# Python
 .venv/
 venv/
 env/
 ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.db
 
+# Node
 node_modules/
+dist/
+
+# Build artifacts
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.*
