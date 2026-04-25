@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from app.controllers.agent_controller import AgentIncomingRequest, handle_incoming_controller
+from app.controllers.agent_controller import handle_incoming_controller
+from app.schemas.agent_schema import AgentIncomingRequest
 
 router = APIRouter(prefix="/agents", tags=["agents"])
 

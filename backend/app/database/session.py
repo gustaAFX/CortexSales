@@ -1,10 +1,11 @@
+import os
+from collections.abc import Generator
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.orm.session import Session
 
-from typing import Generator
-
-DATABASE_URL = "sqlite:///./cortexsales.db"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./cortexsales.db")
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

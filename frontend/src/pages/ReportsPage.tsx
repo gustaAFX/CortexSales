@@ -6,7 +6,7 @@ import { reportLeads, reportMetrics } from "../features/reports/mockData";
 export function ReportsPage() {
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold">Reports</h2>
+      <h2 className="text-xl font-semibold">Relatorios</h2>
       <div className="grid gap-4 md:grid-cols-2">
         {reportMetrics.map((metric) => (
           <Card key={metric.label} title={metric.label}>
