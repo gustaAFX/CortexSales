@@ -1,3 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-[#05060A] text-slate-100 antialiased;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background-image:
+    radial-gradient(circle at 12% 12%, rgba(123, 97, 255, 0.14), transparent 35%),
+    radial-gradient(circle at 85% 0%, rgba(196, 181, 253, 0.1), transparent 35%),
+    linear-gradient(180deg, #05060a 0%, #0a0b14 100%);
+  background-attachment: fixed;
+}
+
+.lab-bg::before {
+  overflow: hidden;
+  max-width: 100vw;
+  max-height: 100vh;
+  box-sizing: border-box;
+}

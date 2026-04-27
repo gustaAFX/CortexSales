@@ -9,13 +9,20 @@ export function ProductsPage() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      <div className="rounded-[24px] border border-white/5 bg-[rgba(17,19,29,0.95)] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        <h2 className="text-2xl font-bold text-white">Produtos</h2>
+        <p className="mt-2 text-sm text-[#A1A1B5]">
+          Gerencie catálogo, posicionamento comercial e valor percebido por segmento.
+        </p>
+      </div>
+
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Produtos</h2>
+        <h3 className="text-lg font-semibold text-white">Catalogo de produtos</h3>
         <Button onClick={() => setOpen(true)}>Novo produto</Button>
       </div>
 
-      <Card title="Catalogo de produtos">
+      <Card>
         <Table
           rows={mockProducts}
           columns={[
@@ -33,15 +40,15 @@ export function ProductsPage() {
       <Modal title="CRUD de produto (mock)" open={open} onClose={() => setOpen(false)}>
         <div className="space-y-3">
           <input
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm"
+            className="h-12 w-full rounded-[14px] border border-white/10 bg-[#0D1018] px-3 py-2 text-sm text-white placeholder:text-[#6B7280] focus:border-violet-400/50 focus:outline-none"
             placeholder="Nome"
           />
           <input
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm"
+            className="h-12 w-full rounded-[14px] border border-white/10 bg-[#0D1018] px-3 py-2 text-sm text-white placeholder:text-[#6B7280] focus:border-violet-400/50 focus:outline-none"
             placeholder="Preco"
           />
           <textarea
-            className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm"
+            className="w-full rounded-[14px] border border-white/10 bg-[#0D1018] px-3 py-2 text-sm text-white placeholder:text-[#6B7280] focus:border-violet-400/50 focus:outline-none"
             placeholder="Descricao"
           />
           <Button>Salvar</Button>

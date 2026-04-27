@@ -19,8 +19,8 @@ export function ChatControlPanel({ leadName, activeAgent }: ChatControlPanelProp
   return (
     <div className="space-y-4">
       <Card title={`Conversa com ${leadName}`}>
-        <p className="mb-3 text-sm text-slate-300">Agente ativo: {activeAgent}</p>
-        <div className="space-y-2 rounded-md bg-slate-950 p-3">
+        <p className="mb-3 text-sm text-[#A1A1B5]">Agente ativo: {activeAgent}</p>
+        <div className="space-y-2 rounded-2xl border border-white/10 bg-[#0B0E17] p-3">
           {mockConversation.map((item) => (
             <p key={item.id} className="text-sm text-slate-200">
               <span className="font-semibold">{item.from}:</span> {item.text}
@@ -36,7 +36,7 @@ export function ChatControlPanel({ leadName, activeAgent }: ChatControlPanelProp
       {manualMode ? (
         <Card title="Modo manual ativo">
           <textarea
-            className="min-h-24 w-full rounded-md border border-slate-700 bg-slate-950 p-2 text-sm text-slate-100"
+            className="min-h-24 w-full rounded-[14px] border border-white/10 bg-[#0D1018] p-3 text-sm text-slate-100 focus:border-violet-400/50 focus:outline-none"
             placeholder="Digite a mensagem manual para o lead..."
           />
         </Card>

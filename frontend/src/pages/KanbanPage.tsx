@@ -22,8 +22,14 @@ export function KanbanPage() {
   );
 
   return (
-    <div>
-      <h2 className="mb-4 text-xl font-semibold">Pipeline Comercial</h2>
+    <div className="space-y-5">
+      <div className="rounded-[24px] border border-white/5 bg-[rgba(17,19,29,0.95)] p-5 shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        <h2 className="text-2xl font-bold text-white">Pipeline Comercial</h2>
+        <p className="mt-2 text-sm text-[#A1A1B5]">
+          Visualize o funil completo, identifique gargalos e acompanhe o dono de cada oportunidade.
+        </p>
+      </div>
+
       <div className="grid gap-4 xl:grid-cols-5">
         {kanbanColumns.map((column) => (
           <Card key={column} title={column}>
@@ -34,13 +40,13 @@ export function KanbanPage() {
                   <button
                     key={lead.id}
                     onClick={() => setSelectedLeadId(lead.id)}
-                    className="w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-left hover:border-indigo-500"
+                    className="w-full rounded-2xl border border-white/10 bg-[#0E111A] p-3 text-left transition hover:border-violet-400/50 hover:shadow-[0_0_25px_rgba(123,97,255,0.15)]"
                   >
-                    <p className="font-medium">{lead.name}</p>
-                    <p className="mt-1 text-xs text-slate-400">{lead.lastInteraction}</p>
+                    <p className="font-medium text-white">{lead.name}</p>
+                    <p className="mt-1 text-xs text-[#A1A1B5]">{lead.lastInteraction}</p>
                     <div className="mt-2 flex items-center justify-between">
                       <Badge tone={statusTone[lead.status]}>{lead.status}</Badge>
-                      <span className="text-xs text-slate-400">{lead.ownerAgent}</span>
+                      <span className="text-xs text-violet-300">{lead.ownerAgent}</span>
                     </div>
                   </button>
                 ))}

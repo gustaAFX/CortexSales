@@ -1,6 +1,6 @@
 export const reportMetrics = [
-  { label: "Taxa de conversao", value: "30.6%" },
-  { label: "Tempo medio de fechamento", value: "8 dias" }
+  { label: "Taxa de conversao", value: "30.6%", hint: "Meta mensal: 34%" },
+  { label: "Tempo medio de fechamento", value: "8 dias", hint: "Meta mensal: 7 dias" }
 ];
 
 export const reportLeads = [
