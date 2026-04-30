@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: cortexsales-backend:latest
+    container_name: cortexsales-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////app/data/cortexsales.db}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost}
+      PORT: "8000"
+    volumes:
+      - backend_data:/app/data
+    expose:
+      - "8000"
+    networks:
+      - cortexsales
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
+    image: cortexsales-frontend:latest
+    container_name: cortexsales-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    networks:
+      - cortexsales
+
+networks:
+  cortexsales:
+    driver: bridge
+
+volumes:
+  backend_data:

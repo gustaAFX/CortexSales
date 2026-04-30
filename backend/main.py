@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
 
@@ -21,9 +22,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title="CortexSales API", lifespan=lifespan)
 
+_cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+allow_origins = [o.strip() for o in _cors_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=allow_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
